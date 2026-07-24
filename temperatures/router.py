@@ -77,7 +77,7 @@ async def update_temperatures(
 
 @router.get("/")
 async def get_temperatures(
-    city_id: int = Query(int, alias="city_id"),
+    city_id: int | None = Query(None, alias="city_id"),
     session: AsyncSession = Depends(get_async_session),
 ) -> List[STemperature]:
     temperatures = await get_all_temperatures(session=session, city_id=city_id)
