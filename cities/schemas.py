@@ -9,6 +9,9 @@ class SCityBase(BaseModel):
 class SCity(SCityBase):
     id: int
 
+    class Config:
+        from_attributes = True
+
 
 class SCityCreate(SCityBase):
     pass
