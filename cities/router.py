@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from cities.crud import create_city, get_all_cities, get_city_by_id
+from cities.crud import create_city, delete_city_by_id, get_all_cities, get_city_by_id
 from cities.schemas import SCity, SCityCreate
 from database import get_async_session
 
@@ -33,3 +33,12 @@ async def get_city(
     if city is None:
         raise HTTPException(status_code=404, detail="City not found")
     return SCity.model_validate(city)
+
+
+@router.delete("/{city_id}/", status_code=204)
+async def delete_city(
+    city_id: int, session: AsyncSession = Depends(get_async_session)
+) -> None:
+    is_deleted = await delete_city_by_id(session=session, id_=city_id)
+    if not is_deleted:
+        raise HTTPException(status_code=404, detail="City not found")
