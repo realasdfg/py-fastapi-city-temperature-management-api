@@ -18,3 +18,11 @@ class STemperature(STemperatureBase):
 
 class STemperatureCreate(STemperatureBase):
     pass
+
+
+class STemperatureUpdateResult(BaseModel):
+    city_id: int
+    city_name: str
+    success: bool
+    temperature: float | None = None
+    error: str | None = None

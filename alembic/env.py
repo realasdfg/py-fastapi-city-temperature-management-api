@@ -16,7 +16,7 @@ from temperatures import models as temperature_models
 config = context.config
 
 
-config.set_main_option("sqlalchemy.url", settings.db_uri)
+config.set_main_option("sqlalchemy.url", settings.DB_URI)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

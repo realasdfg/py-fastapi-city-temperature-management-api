@@ -5,8 +5,8 @@ load_dotenv()
 
 
 class Settings(BaseSettings):
-    db_uri: str
-    weatherapi_key: str
+    DB_URI: str
+    WEATHERAPI_KEY: str
 
 
 settings = Settings()
