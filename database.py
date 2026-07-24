@@ -3,9 +3,9 @@ from typing import Any, AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import declarative_base
 
-SQLALCHEMY_DATABASE_URI = "sqlite+aiosqlite:///db.sqlite3"
+from config import settings
 
-engine = create_async_engine(SQLALCHEMY_DATABASE_URI)
+engine = create_async_engine(settings.db_uri)
 
 Base = declarative_base()
 
