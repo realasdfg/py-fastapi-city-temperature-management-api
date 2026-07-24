@@ -17,3 +17,7 @@ async def get_all_cities(session: AsyncSession) -> Sequence[City]:
     stmt = select(City)
     result = await session.execute(stmt)
     return result.scalars().all()
+
+
+async def get_city_by_id(session: AsyncSession, id_: int) -> type[City] | None:
+    return await session.get(City, id_)

@@ -1,9 +1,9 @@
 from typing import List
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from cities.crud import create_city, get_all_cities
+from cities.crud import create_city, get_all_cities, get_city_by_id
 from cities.schemas import SCity, SCityCreate
 from database import get_async_session
 
@@ -23,3 +23,13 @@ async def add_city(
 async def get_cities(session: AsyncSession = Depends(get_async_session)) -> List[SCity]:
     cities = await get_all_cities(session=session)
     return [SCity.model_validate(city) for city in cities]
+
+
+@router.get("/{city_id}/")
+async def get_city(
+    city_id: int, session: AsyncSession = Depends(get_async_session)
+) -> SCity:
+    city = await get_city_by_id(session=session, id_=city_id)
+    if city is None:
+        raise HTTPException(status_code=404, detail="City not found")
+    return SCity.model_validate(city)
